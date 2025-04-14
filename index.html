@@ -363,7 +363,7 @@
         // Fetch tech news using Vercel Serverless Function
         async function fetchTechNews() {
             // 为 GitHub Pages 使用绝对 URL，Vercel 使用相对 URL
-            const PROXY_API_URL = window.location.hostname.includes('vercel.app') ? '/api/news' : 'https://<你的vercel项目>.vercel.app/api/news';
+            const PROXY_API_URL = window.location.hostname.includes('vercel.app') ? 'https://vance2025.github.io/api/news' : 'https://time-inky.vercel.app/api/news';
             
             try {
                 const response = await fetch(PROXY_API_URL);
