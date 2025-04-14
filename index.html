@@ -371,63 +371,58 @@
         
         // Fetch tech news using GNews API
         async function fetchTechNews() {
-            const API_KEY = '0d9d764c012ed74e611f04fc98aaeb8c'; // 需要替换为你的 GNews API key
-            const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=technology OR AI&lang=en&country=us&max=9&apikey=${API_KEY}`;
-            
-            try {
-                const response = await fetch(GNEWS_API_URL);
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || 'Failed to fetch news');
-                }
-                
-                const newsContainer = document.getElementById('news-container');
-                newsContainer.innerHTML = '';
-                
-                // 如果没有找到新闻
-                if (!data.articles || data.articles.length === 0) {
-                    newsContainer.innerHTML = `
-                        <div class="col-span-3 text-center py-8">
-                            <i class="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
-                            <p class="text-gray-500">No news available at the moment. Please try again later.</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // 显示新闻
-                data.articles.forEach(article => {
-                    const newsCard = document.createElement('div');
-                    newsCard.className = 'news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 fade-in cursor-pointer';
-                    
-                    // 使用默认图片如果新闻没有图片
-                    const imageUrl = article.image || 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80';
-                    
-                    newsCard.innerHTML = `
-                        <a href="${article.url}" target="_blank" class="block">
-                            <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
-                                <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80';">
-                            </div>
-                            <h3 class="font-semibold text-lg mb-2 text-gray-800">${article.title}</h3>
-                            <p class="text-gray-600 text-sm mb-3">${article.description}</p>
-                            <div class="text-xs text-blue-600">Source: ${article.source.name}</div>
-                            <div class="text-xs text-gray-500 mt-2">Last updated: ${new Date(article.publishedAt).toLocaleString()}</div>
-                        </a>
-                    `;
-                    newsContainer.appendChild(newsCard);
-                });
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                const newsContainer = document.getElementById('news-container');
-                newsContainer.innerHTML = `
-                    <div class="col-span-3 text-center py-8">
-                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
-                        <p class="text-gray-500">Sorry, we couldn't load the news. Please try again later.</p>
-                    </div>
-                `;
-            }
+    const PROXY_API_URL = '/api/news'; // Vercel 代理端点
+    
+    try {
+        const response = await fetch(PROXY_API_URL);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to fetch news');
         }
+        
+        const newsContainer = document.getElementById('news-container');
+        newsContainer.innerHTML = '';
+        
+        if (!data.articles || data.articles.length === 0) {
+            newsContainer.innerHTML = `
+                <div class="col-span-3 text-center py-8">
+                    <i class="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
+                    <p class="text-gray-500">No news available at the moment. Please try again later.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        data.articles.forEach(article => {
+            const newsCard = document.createElement('div');
+            newsCard.className = 'news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 fade-in cursor-pointer';
+            const imageUrl = article.image || 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            
+            newsCard.innerHTML = `
+                <a href="${article.url}" target="_blank" class="block">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                        <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">${article.title}</h3>
+                    <p class="text-gray-600 text-sm mb-3">${article.description}</p>
+                    <div class="text-xs text-blue-600">Source: ${article.source.name}</div>
+                    <div class="text-xs text-gray-500 mt-2">Last updated: ${new Date(article.publishedAt).toLocaleString()}</div>
+                </a>
+            `;
+            newsContainer.appendChild(newsCard);
+        });
+    } catch (error) {
+        console.error('Error fetching news:', error);
+        const newsContainer = document.getElementById('news-container');
+        newsContainer.innerHTML = `
+            <div class="col-span-3 text-center py-8">
+                <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                <p class="text-gray-500">Sorry, we couldn't load the news. Please try again later.</p>
+            </div>
+        `;
+    }
+}
         
         // Initial fetch with 1.5s delay
         setTimeout(fetchTechNews, 1500);
