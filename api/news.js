@@ -3,7 +3,7 @@ export default async (req, res) => {
     const GNEWS_API_URL = ` https://gnews.io/api/v4/search?q=technology%20OR%20AI&lang=en&country=us&max=9&apikey=${API_KEY}`;
 
     // 设置 CORS 头，允许跨域请求
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://vance2025.github.io/');
     res.setHeader('Access-Control-Allow-Methods', 'GET');
 
     try {
