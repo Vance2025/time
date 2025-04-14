@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeZone & Tech News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .time-display {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-12 fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">TimeZone <span class="text-blue-600">Hub</span></h1>
+            <p class="text-gray-600 text-lg">Your global time and tech news companion</p>
+        </header>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Current Time Section -->
+            <div class="glass-card p-8 fade-in">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-clock text-3xl text-blue-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Current Time</h2>
+                </div>
+                
+                <div class="time-display text-center py-6">
+                    <div class="text-5xl md:text-6xl font-bold text-gray-800 mb-2" id="current-time">00:00:00</div>
+                    <div class="text-xl text-gray-600" id="current-date">January 1, 2023</div>
+                    <div class="mt-4 text-lg">
+                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full" id="timezone">UTC</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span>Automatically detected from your location</span>
+                </div>
+            </div>
+            
+            <!-- Timezone Converter -->
+            <div class="glass-card p-8 fade-in">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-globe-americas text-3xl text-blue-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Timezone Converter</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">From Timezone</label>
+                        <select id="from-timezone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="Asia/Shanghai">Current Location</option>
+                            <option value="UTC">UTC</option>
+                            <option value="America/New_York">New York (EST)</option>
+                            <option value="America/Los_Angeles">Los Angeles (PST)</option>
+                            <option value="Europe/London">London (GMT)</option>
+                            <option value="Europe/Paris">Paris (CET)</option>
+                            <option value="Asia/Tokyo">Tokyo (JST)</option>
+                            <option value="Australia/Sydney">Sydney (AEST)</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 mb-2">To Timezone</label>
+                        <select id="to-timezone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="America/New_York">New York (EST)</option>
+                            <option value="UTC">UTC</option>
+                            <option value="America/Los_Angeles">Los Angeles (PST)</option>
+                            <option value="Europe/London">London (GMT)</option>
+                            <option value="Europe/Paris">Paris (CET)</option>
+                            <option value="Asia/Tokyo">Tokyo (JST)</option>
+                            <option value="Australia/Sydney">Sydney (AEST)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Time</label>
+                            <input type="time" id="input-time" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Date</label>
+                            <input type="date" id="input-date" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    
+                    <button id="convert-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition duration-300 mt-4">
+                        Convert Time
+                    </button>
+                    
+                    <div id="result-container" class="mt-6 hidden">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-medium text-gray-800 mb-2">Converted Time:</h3>
+                            <div class="text-xl font-semibold" id="converted-time">-</div>
+                            <div class="text-sm text-gray-600 mt-1" id="converted-timezone">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech News Section -->
+        <div class="glass-card p-8 mb-8 fade-in">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-newspaper text-3xl text-blue-600 mr-4"></i>
+                <h2 class="text-2xl font-semibold text-gray-800">Latest Tech & AI News</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="news-container">
+                <!-- News cards will be inserted here by JavaScript -->
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+                
+                <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Loading news...</h3>
+                    <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
+                    <div class="text-xs text-blue-600">Source: Loading...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="text-center text-gray-500 text-sm mt-12 fade-in">
+            <p>© 2023 TimeZone Hub. All rights reserved.</p>
+            <p class="mt-1">Built with <i class="fas fa-heart text-red-500"></i> for time enthusiasts</p>
+        </footer>
+    </div>
+
+    <script>
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('current-time');
+            const dateElement = document.getElementById('current-date');
+            const timezoneElement = document.getElementById('timezone');
+            
+            // Format time
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString(undefined, options);
+            
+            // Get timezone
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            timezoneElement.textContent = timezone;
+            
+            // Set the from-timezone dropdown to match current timezone
+            setFromTimezoneDropdown(timezone);
+        }
+        
+        // Map common timezones to our dropdown options
+        function setFromTimezoneDropdown(currentTimezone) {
+            const timezoneMap = {
+                'America/New_York': 'America/New_York',
+                'America/Chicago': 'America/Chicago',
+                'America/Denver': 'America/Denver',
+                'America/Phoenix': 'America/Phoenix',
+                'America/Los_Angeles': 'America/Los_Angeles',
+                'America/Anchorage': 'America/Anchorage',
+                'America/Honolulu': 'America/Honolulu',
+                'Europe/London': 'Europe/London',
+                'Europe/Paris': 'Europe/Paris',
+                'Europe/Berlin': 'Europe/Paris', // CET
+                'Asia/Tokyo': 'Asia/Tokyo',
+                'Asia/Shanghai': 'Asia/Shanghai',
+                'Asia/Hong_Kong': 'Asia/Hong_Kong',
+                'Asia/Singapore': 'Asia/Singapore',
+                'Australia/Sydney': 'Australia/Sydney',
+                'Australia/Melbourne': 'Australia/Sydney'
+            };
+            
+            const fromTimezoneSelect = document.getElementById('from-timezone');
+            const matchedTimezone = timezoneMap[currentTimezone] || 'UTC';
+            
+            // Set the dropdown to match current timezone
+            if (fromTimezoneSelect.querySelector(`option[value="${matchedTimezone}"]`)) {
+                fromTimezoneSelect.value = matchedTimezone;
+            } else {
+                // If no exact match, set to UTC
+                fromTimezoneSelect.value = 'UTC';
+            }
+        }
+        
+        // Update time immediately and then every second
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
+        
+        // Timezone converter functionality
+        let convertedTimeInterval; // 用于存储定时器ID
+
+        function updateConvertedTime() {
+            const fromTimezone = document.getElementById('from-timezone').value;
+            const toTimezone = document.getElementById('to-timezone').value;
+            const inputTime = document.getElementById('input-time').value;
+            const inputDate = document.getElementById('input-date').value;
+            
+            if (!inputTime || !inputDate) {
+                return;
+            }
+            
+            // 获取当前时间
+            const now = new Date();
+            // 使用用户选择的日期，但使用当前的时分秒
+            const [year, month, day] = inputDate.split('-');
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            const dateStr = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+            const date = new Date(dateStr);
+            
+            // Format options
+            const options = {
+                timeZone: toTimezone,
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            };
+            
+            // Convert to target timezone
+            const convertedTime = date.toLocaleString('en-US', options);
+            
+            // Display result
+            document.getElementById('converted-time').textContent = convertedTime;
+            document.getElementById('converted-timezone').textContent = `(${toTimezone})`;
+            document.getElementById('result-container').classList.remove('hidden');
+        }
+        
+        document.getElementById('convert-btn').addEventListener('click', function() {
+            // 清除之前的定时器
+            if (convertedTimeInterval) {
+                clearInterval(convertedTimeInterval);
+            }
+            // 立即更新一次
+            updateConvertedTime();
+            // 设置定时器，每秒更新一次
+            convertedTimeInterval = setInterval(updateConvertedTime, 1000);
+        });
+
+        // 当改变时区或日期时，需要重新计算
+        document.getElementById('to-timezone').addEventListener('change', updateConvertedTime);
+        document.getElementById('from-timezone').addEventListener('change', updateConvertedTime);
+        document.getElementById('input-date').addEventListener('change', updateConvertedTime);
+
+        // Set default date to today and current time
+        document.getElementById('input-date').valueAsDate = new Date();
+        
+        // Set default time to current time
+        function setDefaultTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('input-time').value = `${hours}:${minutes}`;
+        }
+        
+        setDefaultTime();
+        
+        // Fetch tech news using GNews API
+        async function fetchTechNews() {
+            const API_KEY = '0d9d764c012ed74e611f04fc98aaeb8c'; // 需要替换为你的 GNews API key
+            const GNEWS_API_URL = `https://gnews.io/api/v4/search?q=technology OR AI&lang=en&country=us&max=9&apikey=${API_KEY}`;
+            
+            try {
+                const response = await fetch(GNEWS_API_URL);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to fetch news');
+                }
+                
+                const newsContainer = document.getElementById('news-container');
+                newsContainer.innerHTML = '';
+                
+                // 如果没有找到新闻
+                if (!data.articles || data.articles.length === 0) {
+                    newsContainer.innerHTML = `
+                        <div class="col-span-3 text-center py-8">
+                            <i class="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-500">No news available at the moment. Please try again later.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 显示新闻
+                data.articles.forEach(article => {
+                    const newsCard = document.createElement('div');
+                    newsCard.className = 'news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 fade-in cursor-pointer';
+                    
+                    // 使用默认图片如果新闻没有图片
+                    const imageUrl = article.image || 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80';
+                    
+                    newsCard.innerHTML = `
+                        <a href="${article.url}" target="_blank" class="block">
+                            <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                                <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80';">
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2 text-gray-800">${article.title}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${article.description}</p>
+                            <div class="text-xs text-blue-600">Source: ${article.source.name}</div>
+                            <div class="text-xs text-gray-500 mt-2">Last updated: ${new Date(article.publishedAt).toLocaleString()}</div>
+                        </a>
+                    `;
+                    newsContainer.appendChild(newsCard);
+                });
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                const newsContainer = document.getElementById('news-container');
+                newsContainer.innerHTML = `
+                    <div class="col-span-3 text-center py-8">
+                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                        <p class="text-gray-500">Sorry, we couldn't load the news. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Initial fetch with 1.5s delay
+        setTimeout(fetchTechNews, 1500);
+        
+        // Set up automatic refresh every 12 hours
+        setInterval(fetchTechNews, 12 * 60 * 60 * 1000);
+        
+        // Add fade-in effect to elements as they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.glass-card, footer').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=vanceng/timezone-hub" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
