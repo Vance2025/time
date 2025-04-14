@@ -6,6 +6,8 @@
     <title>TimeZone & Tech News</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AdSense 脚本（替换 ca-pub-XXX 为你的 AdSense ID） -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -139,7 +141,15 @@
                 <i class="fas fa-newspaper text-3xl text-blue-600 mr-4"></i>
                 <h2 class="text-2xl font-semibold text-gray-800">Latest Tech & AI News</h2>
             </div>
-            
+            <!-- AdSense 广告单元（替换 ca-pub-XXX 和 data-ad-slot） -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="news-container">
                 <!-- News cards will be inserted here by JavaScript -->
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
@@ -150,7 +160,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -159,7 +168,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -168,7 +176,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -177,7 +184,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -186,7 +192,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -195,7 +200,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -204,7 +208,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -213,7 +216,6 @@
                     <p class="text-gray-600 text-sm mb-3">Please wait while we fetch the latest updates</p>
                     <div class="text-xs text-blue-600">Source: Loading...</div>
                 </div>
-                
                 <div class="news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300">
                     <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
                         <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
@@ -228,6 +230,7 @@
         <footer class="text-center text-gray-500 text-sm mt-12 fade-in">
             <p>© 2023 TimeZone Hub. All rights reserved.</p>
             <p class="mt-1">Built with <i class="fas fa-heart text-red-500"></i> for time enthusiasts</p>
+            <p class="mt-1"><a href="/privacy.html" class="text-blue-600">Privacy Policy</a></p>
         </footer>
     </div>
 
@@ -285,7 +288,6 @@
             if (fromTimezoneSelect.querySelector(`option[value="${matchedTimezone}"]`)) {
                 fromTimezoneSelect.value = matchedTimezone;
             } else {
-                // If no exact match, set to UTC
                 fromTimezoneSelect.value = 'UTC';
             }
         }
@@ -295,7 +297,7 @@
         setInterval(updateCurrentTime, 1000);
         
         // Timezone converter functionality
-        let convertedTimeInterval; // 用于存储定时器ID
+        let convertedTimeInterval;
 
         function updateConvertedTime() {
             const fromTimezone = document.getElementById('from-timezone').value;
@@ -307,9 +309,7 @@
                 return;
             }
             
-            // 获取当前时间
             const now = new Date();
-            // 使用用户选择的日期，但使用当前的时分秒
             const [year, month, day] = inputDate.split('-');
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -318,7 +318,6 @@
             const dateStr = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
             const date = new Date(dateStr);
             
-            // Format options
             const options = {
                 timeZone: toTimezone,
                 hour12: false,
@@ -331,35 +330,27 @@
                 weekday: 'long'
             };
             
-            // Convert to target timezone
             const convertedTime = date.toLocaleString('en-US', options);
             
-            // Display result
             document.getElementById('converted-time').textContent = convertedTime;
             document.getElementById('converted-timezone').textContent = `(${toTimezone})`;
             document.getElementById('result-container').classList.remove('hidden');
         }
         
         document.getElementById('convert-btn').addEventListener('click', function() {
-            // 清除之前的定时器
             if (convertedTimeInterval) {
                 clearInterval(convertedTimeInterval);
             }
-            // 立即更新一次
             updateConvertedTime();
-            // 设置定时器，每秒更新一次
             convertedTimeInterval = setInterval(updateConvertedTime, 1000);
         });
 
-        // 当改变时区或日期时，需要重新计算
         document.getElementById('to-timezone').addEventListener('change', updateConvertedTime);
         document.getElementById('from-timezone').addEventListener('change', updateConvertedTime);
         document.getElementById('input-date').addEventListener('change', updateConvertedTime);
 
-        // Set default date to today and current time
         document.getElementById('input-date').valueAsDate = new Date();
         
-        // Set default time to current time
         function setDefaultTime() {
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
@@ -369,68 +360,69 @@
         
         setDefaultTime();
         
-        // Fetch tech news using GNews API
+        // Fetch tech news using Vercel Serverless Function
         async function fetchTechNews() {
-    const PROXY_API_URL = '/api/news'; // Vercel 代理端点
-    
-    try {
-        const response = await fetch(PROXY_API_URL);
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.error || 'Failed to fetch news');
-        }
-        
-        const newsContainer = document.getElementById('news-container');
-        newsContainer.innerHTML = '';
-        
-        if (!data.articles || data.articles.length === 0) {
-            newsContainer.innerHTML = `
-                <div class="col-span-3 text-center py-8">
-                    <i class="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
-                    <p class="text-gray-500">No news available at the moment. Please try again later.</p>
-                </div>
-            `;
-            return;
-        }
-        
-        data.articles.forEach(article => {
-            const newsCard = document.createElement('div');
-            newsCard.className = 'news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 fade-in cursor-pointer';
-            const imageUrl = article.image || 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            // 为 GitHub Pages 使用绝对 URL，Vercel 使用相对 URL
+            const PROXY_API_URL = window.location.hostname.includes('vercel.app') ? '/api/news' : 'https://<你的vercel项目>.vercel.app/api/news';
             
-            newsCard.innerHTML = `
-                <a href="${article.url}" target="_blank" class="block">
-                    <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
-                        <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+            try {
+                const response = await fetch(PROXY_API_URL);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to fetch news');
+                }
+                
+                const newsContainer = document.getElementById('news-container');
+                newsContainer.innerHTML = '';
+                
+                if (!data.articles || data.articles.length === 0) {
+                    newsContainer.innerHTML = `
+                        <div class="col-span-3 text-center py-8">
+                            <i class="fas fa-newspaper text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-500">No news available at the moment. Please try again later.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                data.articles.forEach(article => {
+                    const newsCard = document.createElement('div');
+                    newsCard.className = 'news-card bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 fade-in cursor-pointer';
+                    const imageUrl = article.image || 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                    
+                    newsCard.innerHTML = `
+                        <a href="${article.url}" target="_blank" class="block">
+                            <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                                <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2 text-gray-800">${article.title}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${article.description}</p>
+                            <div class="text-xs text-blue-600">Source: ${article.source.name}</div>
+                            <div class="text-xs text-gray-500 mt-2">Last updated: ${new Date(article.publishedAt).toLocaleString()}</div>
+                        </a>
+                    `;
+                    newsContainer.appendChild(newsCard);
+                });
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                const newsContainer = document.getElementById('news-container');
+                newsContainer.innerHTML = `
+                    <div class="col-span-3 text-center py-8">
+                        <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+                        <p class="text-gray-500">Sorry, we couldn't load the news. Please try again later.</p>
                     </div>
-                    <h3 class="font-semibold text-lg mb-2 text-gray-800">${article.title}</h3>
-                    <p class="text-gray-600 text-sm mb-3">${article.description}</p>
-                    <div class="text-xs text-blue-600">Source: ${article.source.name}</div>
-                    <div class="text-xs text-gray-500 mt-2">Last updated: ${new Date(article.publishedAt).toLocaleString()}</div>
-                </a>
-            `;
-            newsContainer.appendChild(newsCard);
-        });
-    } catch (error) {
-        console.error('Error fetching news:', error);
-        const newsContainer = document.getElementById('news-container');
-        newsContainer.innerHTML = `
-            <div class="col-span-3 text-center py-8">
-                <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
-                <p class="text-gray-500">Sorry, we couldn't load the news. Please try again later.</p>
-            </div>
-        `;
-    }
-}
+                `;
+            }
+        }
         
         // Initial fetch with 1.5s delay
         setTimeout(fetchTechNews, 1500);
         
-        // Set up automatic refresh every 12 hours
+        // Refresh news every 12 hours
         setInterval(fetchTechNews, 12 * 60 * 60 * 1000);
         
-        // Add fade-in effect to elements as they come into view
+        // Fade-in effect for elements
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -443,5 +435,5 @@
             observer.observe(el);
         });
     </script>
-<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=vanceng/timezone-hub" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</body>
 </html>
